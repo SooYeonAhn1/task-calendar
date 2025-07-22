@@ -1,22 +1,18 @@
 import { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import { auth } from '../firebase/firebase';
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth'
-import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
 import styles from './Login.module.css'
 
 export default function Login() {
     const [email, setemail] = useState("");
     const [password, setPassword] = useState("");
-    const [isRegister, setIsRegister] = useState(false);
+    const navigate = useNavigate();
 
     const handleSubmit =  async (e) => {
         e.preventDefault();
         try {
-            if (isRegister) {
-                await createUserWithEmailAndPassword(auth, email, password);
-            } else {
-                await signInWithEmailAndPassword(auth, email, password);
-            }
+            await signInWithEmailAndPassword(auth, email, password);
         } catch (err) {
             alert(err.message);
         }
@@ -32,26 +28,34 @@ export default function Login() {
     };
 
     return (
-        <div className={styles.container}>
-            <h2> {isRegister ?  "Register" : "Login"}</h2>
-            <form onSubmit={handleSubmit}>
-                <input
-                    type="email"
-                    placeholder="email"
-                    value={email}
-                    onChange={(e) => setemail(e.target.value)} required
-                />
-                <input
-                    type="password"
-                    placeholder="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)} required
-                />
-                <button type="submit">{isRegister ? "Sign up" : "Log in"}</button>
-            </form>
-            <button onClick={() => setIsRegister(!isRegister)}>
-                { isRegister ? "Already have an account? Login" : "No account? Register" }
-            </button>
-        </div>
+        <>
+            <title>Login</title>
+            <div className={styles.wrapper}>
+                <div className={styles.container}>
+                    <h2 className={styles.header}>Login</h2>
+                    <form onSubmit={handleSubmit} className={styles.form}>
+                        <input
+                            type="email"
+                            placeholder="email"
+                            value={email}
+                            onChange={(e) => setemail(e.target.value)} required
+                        />
+                        <input
+                            type="password"
+                            placeholder="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)} required
+                        />
+                        <button type="submit">Log in</button>
+                    </form>
+                    <div className={styles.options}>
+                        <button onClick={handleGoogleLogin}>Continue with Google</button>
+                        <button onClick={() =>navigate("/register")}>
+                            No account? Register
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </>
     );
 }

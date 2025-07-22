@@ -1,0 +1,28 @@
+.wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 66vh;
+}
+.container {
+    font-family: Arial, Helvetica, sans-serif;
+    border-color: #000000;
+    border-radius: 8px;
+}
+
+.header {
+    text-align: center;
+    color: white;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.options {
+    margin-top: 4px;
+    gap: 4px;
+    display: flex;
+}
