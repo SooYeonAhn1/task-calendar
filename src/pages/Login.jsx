@@ -13,6 +13,7 @@ export default function Login() {
         e.preventDefault();
         try {
             await signInWithEmailAndPassword(auth, email, password);
+            navigate("/calendar");
         } catch (err) {
             alert(err.message);
         }
@@ -22,6 +23,7 @@ export default function Login() {
         const provider = new GoogleAuthProvider();
         try {
             await signInWithPopup(auth, provider);
+            navigate("/calendar");
         } catch (err) {
             alert(err.message);
         }
