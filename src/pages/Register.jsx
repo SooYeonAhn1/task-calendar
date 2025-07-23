@@ -48,7 +48,7 @@ export default function Register() {
                             value={password}
                             onChange={(e) => setPassword(e.target.value)} required
                         />
-                        <button type="submit">Log in</button>
+                        <button type="submit">Register</button>
                     </form>
                     <div className={styles.options}>
                         <button onClick={handleGoogleLogin}>Continue with Google</button>
