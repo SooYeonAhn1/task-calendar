@@ -1,3 +1,26 @@
 .wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;  
+    border: #fff;
+    border-width: 2px;
+}
+
+.container {
     color: #fff;
+    
+}
+
+.form {
+    display: flex;
+    flex-direction: row;
+}
+
+.newTask {
+    height: 32px;
+}
+
+.btn {
+    height: 36px;
 }

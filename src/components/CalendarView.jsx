@@ -12,10 +12,10 @@ export default function CalendarView() {
         <FullCalendar className={styles.calendar}
             plugins={[dayGridPlugin, interactionPlugin]}
             initialView="dayGridMonth"
-            events={[
-            { title: "Event 1", date: "2025-07-22" },
-            { title: "Event 2", date: "2025-07-25" },
-            ]}
+            // events={[
+            // { title: "Event 1", date: "2025-07-22" },
+            // { title: "Event 2", date: "2025-07-25" },
+            // ]}
             dateClick={(info) => {
                 const dateStr = info.dateStr;
                 navigate(`/day/${dateStr}`)
