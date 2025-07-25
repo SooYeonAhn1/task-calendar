@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { collection, query, where, getDocs, addDoc } from "firebase/firestore";
+import { collection, query, where, getDocs, addDoc, orderBy, serverTimestamp, deleteDoc, doc } from "firebase/firestore";
 import { db } from "../firebase/firebase"; // adjust path to your config
 import styles from "./Daily.module.css"
 
@@ -14,7 +14,7 @@ export default function DailyTasks() {
         setLoading(true);
         try {
             const tasksRef = collection(db, "tasks");
-            const q = query(tasksRef, where("date", "==", date));
+            const q = query(tasksRef, where("date", "==", date), orderBy("createdAt", "desc"));
             const querySnapshot = await getDocs(q);
 
             const results = querySnapshot.docs.map((doc) => ({
@@ -42,7 +42,7 @@ export default function DailyTasks() {
             await addDoc(collection(db, "tasks"), {
                 title: newTask,
                 date: date,
-                createdAt: new Date(),
+                createdAt: serverTimestamp(),
             });
             setNewTask("");
             fetchTasks();
@@ -51,35 +51,61 @@ export default function DailyTasks() {
         }
     };
 
-    return (
-        <div className={styles.wrapper}>
-            <div className={styles.container}>
-                <h2>Tasks for {date}</h2>
+    const deleteTask = async (taskId) => {
+        try {
+            await deleteDoc(doc(db, "tasks", taskId));
+            fetchTasks();
+        } catch (err) {
+            console.error("Error deleting task: ", err);
+        }
+    };
 
-                <form onSubmit={handleSubmit} className={styles.form}>
+    return (
+    <div className={styles.wrapper}>
+        <div className={styles.container}>
+        <h2>Tasks for {date}</h2>
+
+        {loading ? (
+            <p>Loading...</p>
+        ) : (
+            <ul className={styles.tasks}>
+            {tasks.length > 0 ? (
+                tasks.map((task) => (
+                <li key={task.id} className={styles.taskItem}>
+                    <input type="checkbox" className={styles.checkbox} />
+                    <span className={styles.taskText}>{task.title}</span>
+                    <button
+                    onClick={() => deleteTask(task.id)}
+                    className={styles.deleteBtn}
+                    >
+                    -
+                    </button>
+                </li>
+                ))
+            ) : (
+                <li className={styles.taskItem}>
+                <span className={styles.taskText}>No tasks scheduled for this day.</span>
+                </li>
+            )}
+            </ul>
+        )}
+
+        <form onSubmit={handleSubmit}>
+            <div className={styles.taskItem}>
+                <input type="checkbox" disabled style={{ visibility: "hidden" }} />
+                <div className={styles.addTask}>
                     <input
                         type="text"
-                        placeholder="new task"
                         value={newTask}
                         onChange={(e) => setNewTask(e.target.value)}
                         className={styles.newTask}
                     />
                     <button type="submit" className={styles.btn}>+</button>
-                </form>
-
-
-                {loading ? (
-                    <p>Loading...</p>
-                ) : tasks.elngth > 0 ? (
-                    <ul>
-                        {tasks.map((task) => (
-                            <li key ={task.id}>{task.title}</li>
-                        ))}
-                    </ul>
-                ) : (
-                    <p>No tasks scheduled for this day.</p>
-                )}
+                </div>
             </div>
+        </form>
         </div>
+    </div>
     );
+
 }

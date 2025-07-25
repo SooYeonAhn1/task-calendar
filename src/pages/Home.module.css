@@ -11,8 +11,8 @@ body {
 
 .home {
     background-color: #a19cce7c;
-    border-radius: 12px;
     box-shadow: 4px 4px 4px #4b4b81a9;
+    border-radius: 12px;
     color:#ffffff;
     text-align: center;
     display:inline-block;
