@@ -1,0 +1,35 @@
+body {
+    background-color: #bcbce9;
+}
+
+.wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 66vh;    
+}
+
+.home {
+    background-color: #a19cce7c;
+    box-shadow: 4px 4px 4px #4b4b81a9;
+    border-radius: 12px;
+    color:#ffffff;
+    text-align: center;
+    display:inline-block;
+    max-width: 600px;
+    width: 100%;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 1rem
+}
+
+.welcome {
+    font-size: larger;
+}
+
+.login {
+    font-size: medium;
+}
+
+.register {
+    font-size: medium;
+}
