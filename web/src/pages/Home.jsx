@@ -4,7 +4,6 @@ export default function Home() {
     return (
         <>
             <title>Task Calendar</title>
-            <body>
                 <div className={styles.wrapper}>
                     <div className={styles.home}>
                         <h1 className={styles.welcome}>The ultimate task-management calendar</h1>
@@ -12,7 +11,7 @@ export default function Home() {
                         <p className={styles.login}>If you are an existing user, <Link to="/login">login</Link></p>
                     </div>
                 </div>
-            </body>
+            
         </>
     );
 }

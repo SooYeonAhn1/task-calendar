@@ -1,7 +1,8 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { collection, query, where, getDocs, addDoc, orderBy, serverTimestamp, deleteDoc, doc } from "firebase/firestore";
-import { db } from '../../shared/firebase/firebase';
+import { db } from '@firebaseweb';
+
 import styles from "./Daily.module.css"
 
 export default function DailyTasks() {

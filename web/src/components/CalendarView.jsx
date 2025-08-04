@@ -4,7 +4,7 @@ import interactionPlugin from "@fullcalendar/interaction";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { collection, getDocs, query, orderBy, doc} from "firebase/firestore";
-import { db } from '../../shared/firebase/firebase';
+import { db } from '@firebaseweb';
 import styles from "./Calendar.module.css"
 
 export default function CalendarView() {
